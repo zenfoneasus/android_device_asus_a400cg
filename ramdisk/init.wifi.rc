@@ -1,0 +1,86 @@
+import init.wifi.vendor.rc
+
+on post-fs-data
+    mkdir /data/misc/wifi 0770 wifi wifi
+
+on boot
+    write /proc/sys/net/ipv4/tcp_limit_output_bytes 393216
+    setprop net.tcp.buffersize.wifi 524288,1048576,2097152,131072,262144,393216
+
+on post-fs-data
+   mkdir /data/misc/wifi/sockets 0770 wifi wifi
+   mkdir /data/misc/dhcp 0770 dhcp wifi
+   mkdir /data/misc/firmware 0770 system system
+   chmod 0660 /system/etc/wifi/wpa_supplicant.conf
+   chown wifi wifi /system/etc/wifi/wpa_supplicant.conf
+   chmod 0660 /system/etc/wifi/p2p_supplicant.conf
+   chown wifi wifi /system/etc/wifi/p2p_supplicant.conf
+   chmod 0660 /system/etc/wifi/hostapd.conf
+   chown wifi wifi /system/etc/wifi/hostapd.conf
+
+on property:init.svc.wpa_supplicant=stopped
+    stop dhcpcd
+
+#CY+ use persist.logtool.wifi.framework to set all WIFI framework debug property
+on property:persist.logtool.wifi.framework=1
+   setprop persist.logtool.wifi_hal        1
+   setprop persist.logtool.wifi_supptrack  1
+   setprop persist.logtool.wifi_cfgstore   1
+   setprop persist.logtool.wifi_tethering  1
+   setprop persist.logtool.wifi_svc        1
+   setprop persist.logtool.wifi_native     1
+   setprop persist.logtool.wifi_sm         1
+   setprop persist.logtool.wifi_wdog       1
+   setprop persist.logtool.wifi_p2psvc     1
+   setprop persist.logtool.wifi_con        1
+
+on property:persist.logtool.wifi.framework=0
+   setprop persist.logtool.wifi_hal        0
+   setprop persist.logtool.wifi_supptrack  0
+   setprop persist.logtool.wifi_cfgstore   0
+   setprop persist.logtool.wifi_tethering  0
+   setprop persist.logtool.wifi_svc        0
+   setprop persist.logtool.wifi_native     0
+   setprop persist.logtool.wifi_sm         0
+   setprop persist.logtool.wifi_wdog       0
+   setprop persist.logtool.wifi_p2psvc     0
+   setprop persist.logtool.wifi_con        0
+#CY-
+
+
+service ifcfg_mac80211 /system/bin/ifconfig wlan0 up
+    class main
+    disabled
+    oneshot
+
+service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
+    class main
+    group wifi system dhcp
+    disabled
+    oneshot
+
+service iprenew_wlan0 /system/bin/dhcpcd -n
+    group system dhcp
+    disabled
+    oneshot
+
+service dhcpcd_eth0 /system/bin/dhcpcd -ABDKL -f/system/etc/dhcpcd/android.conf
+    class main
+    disabled
+    oneshot
+
+service dhcpcd_eth0 /system/bin/dhcpcd -ABDKLG
+    class late_start
+    disabled
+    oneshot
+
+service iprenew_eth0 /system/bin/dhcpcd -n
+    class late_start
+    disabled
+    oneshot
+
+#Rubio+ init a service with root permission to execute wifitest command
+service wifitest_runcmd /system/bin/wifitest_runcmd.sh
+    disabled
+    oneshot
+#Rubio-

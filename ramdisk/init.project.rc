@@ -1,0 +1,72 @@
+on init
+    setprop audiocomms.modemLib "libmamgr-xmm.so"
+    setprop audiocomms.XMM.primaryChannel "/dev/gsmtty20"
+    setprop audiocomms.XMM.secondaryChannel "/dev/gsmtty36"
+    setprop audiocomms.XMM.isDualSimModem true
+
+on post-fs
+#  Permissions for Sensors
+    # accelerometer kxtj9
+    chown system system /sys/bus/i2c/devices/5-000e/enable
+    chown system system /sys/bus/i2c/devices/5-000e/delay
+
+    # add by leo for cap sesnor exist check
+    chown system system /sys/bus/i2c/devices/5-0028/cap_check
+    chown system system /sys/bus/i2c/devices/5-0028/capsensor_exist_check
+    chown system system /sys/bus/i2c/devices/5-0028/capsensor_status_check
+
+    mkdir /data/sensors 0660 system system
+    write /data/sensors/accel_cal_data.ini
+
+    # add by leo for goodix touch FW auto update
+    chown system system /sys/bus/i2c/devices/0-005d/gt927_fw_update
+    chown system system /sys/bus/i2c/devices/0-005d/gt927_force_fwupdate
+    chown system system /sys/bus/i2c/devices/0-005d/gt927_fw_check
+    chown system system /sys/bus/i2c/devices/0-005d/tp_fw_version
+
+    # add by tom to create directory for sensors calibration data
+    mkdir /data/sensors 0660 system system
+    write /data/sensors/ps_calibration.ini
+    write /data/sensors/ps_crosstalk.ini
+    chown system system /data/sensors/ps_calibration.ini
+    chown system system /data/sensors/ps_crosstalk.ini
+    chmod 0660 /data/sensors/ps_calibration.ini
+    chmod 0660 /data/sensors/ps_crosstalk.ini
+    setprop sensors.calibration.permission off
+
+    # Paddy
+    setprop qemu.hw.mainkeys 1
+    
+
+
+    # Add by Sewell to set New Default CPUFreq Policy
+    write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 99
+    write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 40000
+    write /sys/devices/system/cpu/cpufreq/interactive/target_loads 65
+    write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 20000
+    write /sys/devices/system/cpu/cpufreq/interactive/timer_slack 20000
+
+    symlink /sys/bus/i2c/devices/0-0015/pad_update_progress /data/pfs_pad_ec_update_progress
+    chmod 0777 /data/pfs_pad_ec_update_progress
+    chmod 0666 /dev/microp
+    mkdir /data/log 0751 root root
+    mkdir /data/log/touch 0751 root root 
+
+service calisensors /system/bin/get_sensors_calibration
+    class main
+    user root
+    group root
+    oneshot
+    
+ service sensorsAP system/bin/SensorsCalibration
+    class main
+    user root
+    group root
+    oneshot
+
+# Permissions for Audio
+on property:ro.debuggable=1
+    chmod 777 /dev/snd/hwC2D0
+    chmod 0666 /sys/bus/i2c/devices/1-001c/codec_reg
+    chmod 0666 /sys/bus/i2c/devices/1-001c/index_reg
+	        

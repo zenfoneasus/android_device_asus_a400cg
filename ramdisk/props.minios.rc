@@ -1,0 +1,4 @@
+# if not previously set, set to default value
+on property:ro.bootmode=factory
+	setprop sys.usb.config acm,adb
+    setprop dev.bootcomplete 1

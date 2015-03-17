@@ -1,0 +1,53 @@
+#will add for test
+
+on post-fs-data
+	mkdir /data/uts 0750 root log
+
+# For log uploader by joey_lee@asus.com
+service logbackup /system/bin/sh /system/etc/packlogs.sh
+	class late_start
+    user root
+    group sdcard_rw
+    oneshot
+    disabled
+
+service uts_bootup /system/bin/sh /system/etc/uts_bootup.sh
+	class late_start
+	user root
+	group root
+	oneshot
+
+#########
+#on property:persist.asus.autoupload.enable=1
+#	start uts_bootup
+
+on property:persist.asus.autoupload.enable=0
+	start uts_bootup
+
+on property:uts.logging=1
+	class_start uts_service
+
+on property:uts.logging=0
+	class_reset uts_service
+
+
+service uts-kernel /system/bin/logcat -b kernel -v uptime -u /uts-kernel.txt -n 99 -r2000
+    class uts_service
+	user root
+	group root
+
+service uts-main /system/bin/logcat -b main -b system -v uptime -u /uts-main.txt -n 99 -r2000
+    class uts_service
+	user root
+	group root
+
+service uts-radio /system/bin/logcat -b radio -v uptime -u /uts-radio.txt -n 99 -r2000
+    class uts_service
+	user root
+	group root
+
+service uts-events /system/bin/logcat -b events -v uptime -u /uts-events.txt -n 99 -r2000
+    class uts_service
+	user root
+	group root
+
