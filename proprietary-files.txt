@@ -12,7 +12,7 @@ system/bin/vold
 system/bin/droidboot
 system/bin/msvdx_bin
 system/bin/topaz_bin
-system/bin/tkbd
+#system/bin/tkbd
 system/bin/cpdd
 system/bin/miu-app
 system/bin/dpstmgr
@@ -72,7 +72,7 @@ system/framework/com.intel.internal.telephony.OemTelephony.jar
 system/framework/com.intel.multidisplay.jar
 system/framework/com.intel.security.lib.sepdrmjni.jar
 system/framework/com.intel.security.service.sepmanager.jar
-system/framework/com.intel.tinkerbell.jar
+#system/framework/com.intel.tinkerbell.jar
 
 # system/lib
 # Intel dalvik
@@ -93,7 +93,7 @@ system/lib/libsharedbuffer.so
 # Intel 
 system/lib/libI420colorconvert.so
 # ASUS
-system/lib/libdumpsys_logtool.so
+#system/lib/libdumpsys_logtool.so
 # openssl
 system/lib/libaesni.so
 # platform/external/tinyalsa
@@ -209,7 +209,7 @@ system/lib/libtcs.so
 system/bin/gpsd
 system/bin/gpslogd
 system/etc/gps.conf
-system/etc/gpsconfig.xml
+#system/etc/gpsconfig.xml
 system/etc/libgps.conf
 
 # BT
@@ -431,7 +431,7 @@ system/lib/libinterface-provider-lib.so
 system/lib/libinterface-provider.so
 system/lib/hw/audio.codec_offload.redhookbay.so
 system/lib/hw/audio.hdmi.redhookbay.so
-system/lib/hw/audio.hs_usb.redhookbay.so
+#system/lib/hw/audio.hs_usb.redhookbay.so
 system/lib/hw/audio_policy.redhookbay.so
 system/lib/hw/audio.primary.redhookbay.so
 # maxx effect
@@ -505,6 +505,6 @@ system/etc/firmware/touch_fw_wintek.bin
 system/etc/firmware/vpimg_es305b.bin
 
 #misc source
-system/etc/bsp1.en:system/etc/dnx.bin
-system/etc/bsp2.en:system/etc/ifwi.bin
-system/etc/bsp3.en:system/etc/splash.bin
+system/etc/bsp1.en
+system/etc/bsp2.en
+system/etc/bsp3.en
