@@ -88,7 +88,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/ramdisk/init.wifi.vendor.rc:root/init.wifi.vendor.rc \
     $(LOCAL_PATH)/ramdisk/init.wireless.rc:root/init.wireless.rc \
     $(LOCAL_PATH)/ramdisk/props.minios.rc:root/props.minios.rc \
-	$(LOCAL_PATH)/ramdisk/props.board.rc:root/props.board.rc \
+    $(LOCAL_PATH)/ramdisk/props.board.rc:root/props.board.rc \
     $(LOCAL_PATH)/ramdisk/props.platform.rc:root/props.platform.rc \
     $(LOCAL_PATH)/ramdisk/props.rc:root/props.rc \
     $(LOCAL_PATH)/ramdisk/rfkill_bt.sh:root/rfkill_bt.sh \
@@ -308,3 +308,5 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 # setup dalvik vm configs.
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
++
++PRODUCT_CHARACTERISTICS := phone
