@@ -220,7 +220,11 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     Stk
-
+    
+ # Houdini
+ PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/houdini/system,system)
+    
 # library
 PRODUCT_PACKAGES += \
     libtinycompress \
