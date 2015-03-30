@@ -16,10 +16,10 @@ COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 LOCAL_CFLAGS += -DARCH_IA32
 BOARD_MALLOC_ALIGNMENT := 16
 
-+
-+# Atom optimizations to improve memory benchmarks enable disable houdini
-+-include $(LOCAL_PATH)/OptAtom.mk
-+
+
+# Atom optimizations to improve memory benchmarks enable disable houdini
+-include $(LOCAL_PATH)/OptAtom.mk
+
 TARGET_BOARD_PLATFORM := clovertrail
 TARGET_BOOTLOADER_BOARD_NAME := clovertrail
 
