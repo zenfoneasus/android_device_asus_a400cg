@@ -190,6 +190,72 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
+# Camera
+ PRODUCT_PACKAGES += \
+     camera.redhookbay \
+     libintelmetadatabuffer
+# Newer camera API isn't supported.
+PRODUCT_PROPERTY_OVERRIDES += \
+    camera2.portability.force_api=1
+    
+# psb video
+ PRODUCT_PACKAGES += \
+     msvdx_bin \
+    topaz_bin \
+    pvr_drv_video
+    
+# libva
+ PRODUCT_PACKAGES += \
+     libva \
+     libva-android \
+     libva-tpi
+ 
+ # libstagefrighthw
+ PRODUCT_PACKAGES += \
+     libstagefrighthw
+ 
+ # libmix
+ PRODUCT_PACKAGES += \
+     libmixvbp_mpeg4 \
+     libmixvbp_h264 \
+     libmixvbp_vc1 \
+     libmixvbp \
+     libva_videodecoder \
+     libva_videoencoder
+    
+ # HW acceleration
+ PRODUCT_PACKAGES += \
+     libwrs_omxil_common \
+     libwrs_omxil_core_pvwrapped \
+     libOMXVideoDecoderAVC \
+     libOMXVideoDecoderAVCSecure \
+     libOMXVideoDecoderH263 \
+     libOMXVideoDecoderMPEG4 \
+     libOMXVideoDecoderPAVC \
+     libOMXVideoDecoderWMV \
+     libOMXVideoEncoderAVC \
+     libOMXVideoEncoderH263 \
+     libOMXVideoEncoderMPEG4
+     
+# libwsbm
+ PRODUCT_PACKAGES += \
+     libwsbm
+     
+# Graphics
+ PRODUCT_PACKAGES += \
+    libdrm \
+    pvrsrvctl \
+    libcorkscrew
+    
+ # Misc
+ PRODUCT_PACKAGES += \
+     curl \
+     libbson \
+     libcurl \
+     tcpdump \
+     Torch \
+     com.android.future.usb.accessory
+     
 # for external SD card
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/platform.xml:system/etc/permissions/platform.xml
@@ -225,6 +291,14 @@ PRODUCT_PACKAGES += \
  PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/houdini/system,system)
     
+ PRODUCT_PACKAGES += \
+    libhoudini_hook \
+    houdini_hook
+    
+# Keylayout (mapping)
+ PRODUCT_COPY_FILES += \
+     $(LOCAL_PATH)/modules/prebuilt/usr/keylayout/cloverview_audio_Intel_MID_Audio_Jack.kl:system/usr/keylayout/cloverview_audio_Intel_MID_Audio_Jack.kl    
+
 # library
 PRODUCT_PACKAGES += \
     libtinycompress \
