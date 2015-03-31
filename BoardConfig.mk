@@ -121,7 +121,11 @@ WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/bcmdhd/parameters/firmware_path"
 WIFI_DRIVER_FW_PATH_AP    := "/system/etc/firmware/fw_bcmdhd_apsta.bin"
 WIFI_DRIVER_FW_PATH_STA   := "/system/etc/firmware/fw_bcmdhd.bin"
 WIFI_DRIVER_MODULE_ARG := "iface_name=wlan0 firmware_path=/system/etc/firmware/fw_bcmdhd.bin"
-
+#WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/bcmdhd.ko"
+#WIFI_DRIVER_MODULE_NAME          := "bcmdhd"
+#WIFI_FIRMWARE_LOADER             := ""
+ COMMON_GLOBAL_CFLAGS             += -DUSES_TI_MAC80211
+ 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
@@ -142,7 +146,24 @@ ENABLE_WEBGL := true
 # Audio
 BOARD_USES_ALSA_AUDIO := true
 BUILD_WITH_ALSA_UTILS := true
+TARGET_RELEASE_CPPFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
+ # GPS
+ BOARD_HAVE_GPS := true
+ 
+ # skip doc from building
+ BOARD_SKIP_ANDROID_DOC_BUILD := true
+ 
+# Bootanimation
+TARGET_BOOTANIMATION_PRELOAD := true
+
+ # Use dlmalloc
+ MALLOC_IMPL := dlmalloc
+ 
+ # Security
+ BUILD_WITH_SECURITY_FRAMEWORK := chaabi_token
+ BUILD_WITH_CHAABI_SUPPORT := true
+ 
 # SELinux
 HAVE_SELINUX := true
 BOARD_SEPOLICY_DIRS += device/asus/a400cg/sepolicy
@@ -155,7 +176,6 @@ BOARD_SEPOLICY_UNION += \
     device.te \
     vold.te \
     ecryptfs.te \
-    surfaceflinger.te \
     zygote.te \
     su.te \
     pvrsrvctl.te \
@@ -168,3 +188,4 @@ BOARD_SEPOLICY_UNION += \
 # BOARD_USE_LIBVA_INTEL_DRIVER := true
 # BOARD_USE_LIBVA := true
 # BOARD_USE_LIBMIX := true
+
