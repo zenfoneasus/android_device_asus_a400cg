@@ -225,6 +225,10 @@ PRODUCT_PACKAGES += \
  PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/houdini/system,system)
     
+PRODUCT_PACKAGES += \
+    libhoudini_hook \
+    houdini_hook
+    
 # library
 PRODUCT_PACKAGES += \
     libtinycompress \
