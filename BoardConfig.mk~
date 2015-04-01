@@ -16,8 +16,6 @@ COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 LOCAL_CFLAGS += -DARCH_IA32
 BOARD_MALLOC_ALIGNMENT := 16
 
-# Encryption
-TARGET_HW_DISK_ENCRYPTION := true
 
 # Atom optimizations to improve memory benchmarks enable disable houdini
 -include device/asus/a400cg/OptAtom.mk

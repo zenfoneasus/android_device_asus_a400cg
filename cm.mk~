@@ -8,7 +8,7 @@ PRODUCT_RELEASE_NAME := ZENFONE 4
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Inherit device configuration
-$(call inherit-product, device/asus/a400cg/device.mk)
+$(call inherit-product, device/asus/a400cg/device_a400cg.mk)
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := ASUS_T00I
